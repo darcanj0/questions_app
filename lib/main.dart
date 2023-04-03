@@ -3,14 +3,19 @@
 import 'package:flutter/material.dart';
 
 void main(List<String> args) {
-  runApp(QuestionsApp(key: GlobalKey(debugLabel: 'main key'),));
+  runApp(QuestionsApp(
+    key: GlobalKey(debugLabel: 'main key'),
+  ));
 }
 
-class QuestionsApp extends StatelessWidget {
-  const QuestionsApp({super.key});
+class QuestionsAppState extends State<QuestionsApp> {
+  int selectedQuestion = 0;
 
   void answerQuestion() {
     print('Question answered');
+    setState(() {
+      selectedQuestion++;
+    });
   }
 
   @override
@@ -25,15 +30,25 @@ class QuestionsApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Questions App'),
         ),
-        body: Column(
-          children: [
-            Text(questions.elementAt(0)),
-            OutlinedButton(onPressed: answerQuestion, child: const Text('Answer 1')),
-            OutlinedButton(onPressed: answerQuestion, child: const Text('Answer 2')),
-            OutlinedButton(onPressed: answerQuestion, child: const Text('Answer 3'))
-          ]
-        ),
+        body: Column(children: [
+          Text(questions.elementAt(0)),
+          OutlinedButton(
+              onPressed: answerQuestion, child: const Text('Answer 1')),
+          OutlinedButton(
+              onPressed: answerQuestion, child: const Text('Answer 2')),
+          OutlinedButton(
+              onPressed: answerQuestion, child: const Text('Answer 3'))
+        ]),
       ),
     );
   }
+}
+
+class QuestionsApp extends StatefulWidget {
+  const QuestionsApp({super.key});
+
+  @override
+  QuestionsAppState createState() {
+    return QuestionsAppState();
+  } 
 }
