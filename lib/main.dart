@@ -1,7 +1,8 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import './question.dart';
+import 'question.dart';
+import 'answer_button.dart';
 
 void main(List<String> args) {
   runApp(QuestionsApp(
@@ -33,12 +34,9 @@ class _QuestionsAppState extends State<QuestionsApp> {
         ),
         body: Column(children: [
           Question(questions.elementAt(_selectedQuestion)),
-          OutlinedButton(
-              onPressed: _answerQuestion, child: const Text('Answer 1')),
-          OutlinedButton(
-              onPressed: _answerQuestion, child: const Text('Answer 2')),
-          OutlinedButton(
-              onPressed: _answerQuestion, child: const Text('Answer 3'))
+          AnswerButton('Answer 1', _answerQuestion),
+          AnswerButton('Answer 2', _answerQuestion),
+          AnswerButton('Answer 3', _answerQuestion)
         ]),
       ),
     );
@@ -51,5 +49,5 @@ class QuestionsApp extends StatefulWidget {
   @override
   _QuestionsAppState createState() {
     return _QuestionsAppState();
-  } 
+  }
 }
