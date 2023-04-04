@@ -15,41 +15,52 @@ class _QuestionsAppState extends State<QuestionsApp> {
 
   void _answerQuestion() {
     print('Question answered');
-    setState(() {
-      _selectedQuestion++;
-    });
+    if (_hasSelectedQuestion) {
+      setState(() {
+        _selectedQuestion++;
+      });
+    }
   }
+
+  bool get _hasSelectedQuestion {
+    return _selectedQuestion < _questions.length;
+  }
+
+  List<String> getAnswers() {
+    return _hasSelectedQuestion
+        ? _questions[_selectedQuestion].cast()['answers'] as List<String>
+        : [];
+  }
+
+  final List<Map<String, Object>> _questions = const [
+    {
+      "question": "What's your favourite color?",
+      "answers": ["Blue", "Yellow", "Red", "Pink", "Black"]
+    },
+    {
+      "question": "What's your favourite animal?",
+      "answers": ["Camel", "Horse", "Morse", "Cat", "Dog"],
+    },
+    {
+      "question": "What's your favourite programming language?",
+      "answers": ["C#", "Java", "Javascript", "Dart", "C++"]
+    }
+  ];
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, Object>> questions = [
-      {
-        "question": "What's your favourite color?",
-        "answers": ["Blue", "Yellow", "Red", "Pink", "Black"]
-      },
-      {
-        "question": "What's your favourite animal?",
-        "answers": ["Camel", "Horse", "Morse", "Cat", "Dog"],
-      },
-      {
-        "question": "What's your favourite programming language?",
-        "answers": ["C#", "Java", "Javascript", "Dart", "C++"]
-      }
-    ];
-
-    getAnswers() {
-      return questions[_selectedQuestion].cast()['answers'] as List<String>;
-    }
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Questions App'),
         ),
-        body: Column(children: [
-          Question(questions[_selectedQuestion]['question'].toString()),
-          ...(getAnswers().map((answer) => AnswerButton(answer, _answerQuestion)))
-        ]),
+        body: _hasSelectedQuestion
+            ? Column(children: [
+                Question(_questions[_selectedQuestion]['question'].toString()),
+                ...(getAnswers()
+                    .map((answer) => AnswerButton(answer, _answerQuestion)))
+              ])
+            : null,
       ),
     );
   }
