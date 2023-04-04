@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import './question.dart';
 
 void main(List<String> args) {
   runApp(QuestionsApp(
@@ -8,13 +9,13 @@ void main(List<String> args) {
   ));
 }
 
-class QuestionsAppState extends State<QuestionsApp> {
-  int selectedQuestion = 0;
+class _QuestionsAppState extends State<QuestionsApp> {
+  int _selectedQuestion = 0;
 
-  void answerQuestion() {
+  void _answerQuestion() {
     print('Question answered');
     setState(() {
-      selectedQuestion++;
+      _selectedQuestion++;
     });
   }
 
@@ -31,13 +32,13 @@ class QuestionsAppState extends State<QuestionsApp> {
           title: const Text('Questions App'),
         ),
         body: Column(children: [
-          Text(questions.elementAt(0)),
+          Question(questions.elementAt(_selectedQuestion)),
           OutlinedButton(
-              onPressed: answerQuestion, child: const Text('Answer 1')),
+              onPressed: _answerQuestion, child: const Text('Answer 1')),
           OutlinedButton(
-              onPressed: answerQuestion, child: const Text('Answer 2')),
+              onPressed: _answerQuestion, child: const Text('Answer 2')),
           OutlinedButton(
-              onPressed: answerQuestion, child: const Text('Answer 3'))
+              onPressed: _answerQuestion, child: const Text('Answer 3'))
         ]),
       ),
     );
@@ -48,7 +49,7 @@ class QuestionsApp extends StatefulWidget {
   const QuestionsApp({super.key});
 
   @override
-  QuestionsAppState createState() {
-    return QuestionsAppState();
+  _QuestionsAppState createState() {
+    return _QuestionsAppState();
   } 
 }
