@@ -27,6 +27,8 @@ class _QuestionsAppState extends State<QuestionsApp> {
       "What's your favourite animal?"
     ];
 
+    final List<String> answers = ["Answer 1", "Answer 2", "Answer 3"];
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -34,9 +36,7 @@ class _QuestionsAppState extends State<QuestionsApp> {
         ),
         body: Column(children: [
           Question(questions.elementAt(_selectedQuestion)),
-          AnswerButton('Answer 1', _answerQuestion),
-          AnswerButton('Answer 2', _answerQuestion),
-          AnswerButton('Answer 3', _answerQuestion)
+          ...answers.map((answer) => AnswerButton(answer, _answerQuestion))
         ]),
       ),
     );
