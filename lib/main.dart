@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'question.dart';
-import 'answer_button.dart';
+import 'package:questions_app/questionnaire.dart';
+import 'result.dart';
 
 void main(List<String> args) {
   runApp(QuestionsApp(
@@ -11,39 +11,51 @@ void main(List<String> args) {
 }
 
 class _QuestionsAppState extends State<QuestionsApp> {
-  int _selectedQuestion = 0;
+  int selectedQuestion = 0;
 
-  void _answerQuestion() {
+  bool get _hasSelectedQuestion {
+    return selectedQuestion < questions.length;
+  }
+
+  void onAnswer() {
     print('Question answered');
     if (_hasSelectedQuestion) {
       setState(() {
-        _selectedQuestion++;
+        selectedQuestion++;
       });
     }
   }
 
-  bool get _hasSelectedQuestion {
-    return _selectedQuestion < _questions.length;
-  }
-
-  List<String> getAnswers() {
-    return _hasSelectedQuestion
-        ? _questions[_selectedQuestion].cast()['answers'] as List<String>
-        : [];
-  }
-
-  final List<Map<String, Object>> _questions = const [
+  final List<Map<String, Object>> questions = const [
     {
       "question": "What's your favourite color?",
-      "answers": ["Blue", "Yellow", "Red", "Pink", "Black"]
+      "answers": [
+        {"text": "Blue", "score": 6},
+        {"text": "Yellow", "score": 8},
+        {"text": "Red", "score": 4},
+        {"text": "Pink", "score": 1},
+        {"text": "Black", "score": 10}
+      ]
     },
     {
       "question": "What's your favourite animal?",
-      "answers": ["Camel", "Horse", "Morse", "Cat", "Dog"],
+      "answers": [
+        {"text": "Camel", "score": 10},
+        {"text": "Horse", "score": 7},
+        {"text": "Morse", "score": 8},
+        {"text": "Cat", "score": 9},
+        {"text": "Dog", "score": 7}
+      ],
     },
     {
       "question": "What's your favourite programming language?",
-      "answers": ["C#", "Java", "Javascript", "Dart", "C++"]
+      "answers": [
+        {"text": "C#", "score": 7},
+        {"text": "Java", "score": 8},
+        {"text": "Javascript", "score": 10},
+        {"text": "Dart", "score": 8},
+        {"text": "C++", "score": 6},
+      ]
     }
   ];
 
@@ -55,12 +67,12 @@ class _QuestionsAppState extends State<QuestionsApp> {
           title: const Text('Questions App'),
         ),
         body: _hasSelectedQuestion
-            ? Column(children: [
-                Question(_questions[_selectedQuestion]['question'].toString()),
-                ...(getAnswers()
-                    .map((answer) => AnswerButton(answer, _answerQuestion)))
-              ])
-            : null,
+            ? Questionnaire(
+                questions: questions,
+                selectedQuestion: selectedQuestion,
+                onAnswer: onAnswer,
+              )
+            : const Result(),
       ),
     );
   }
