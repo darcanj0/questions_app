@@ -5,7 +5,7 @@ import 'package:questions_app/question.dart';
 class Questionnaire extends StatelessWidget {
   final int selectedQuestion;
   final List<Map<String, Object>> questions;
-  final void Function() onAnswer;
+  final void Function(int score) onAnswer;
 
   const Questionnaire({
     super.key,
@@ -31,7 +31,10 @@ class Questionnaire extends StatelessWidget {
       children: [
         Question(questions[selectedQuestion]['question'].toString()),
         ...getAnswers()
-            .map((answer) => AnswerButton(answer['text'] as String, onAnswer))
+            .map((answer) => AnswerButton(
+                  answer: answer['text'] as String,
+                  onPressed: () => onAnswer(answer['score'] as int),
+                ))
             .toList()
       ],
     );

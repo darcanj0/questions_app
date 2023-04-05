@@ -12,16 +12,18 @@ void main(List<String> args) {
 
 class _QuestionsAppState extends State<QuestionsApp> {
   int selectedQuestion = 0;
+  int totalScore = 0;
 
   bool get _hasSelectedQuestion {
     return selectedQuestion < questions.length;
   }
 
-  void onAnswer() {
+  void onAnswer(int score) {
     print('Question answered');
     if (_hasSelectedQuestion) {
       setState(() {
         selectedQuestion++;
+        totalScore += score;
       });
     }
   }
