@@ -28,6 +28,13 @@ class _QuestionsAppState extends State<QuestionsApp> {
     }
   }
 
+  void finishQuestionnaire() {
+    setState(() {
+      selectedQuestion = 0;
+      totalScore = 0;
+    });
+  }
+
   final List<Map<String, Object>> questions = const [
     {
       "question": "What's your favourite color?",
@@ -74,7 +81,10 @@ class _QuestionsAppState extends State<QuestionsApp> {
                 selectedQuestion: selectedQuestion,
                 onAnswer: onAnswer,
               )
-            : Result(totalScore: totalScore,),
+            : Result(
+                totalScore: totalScore,
+                onFinishQuestionnaire: finishQuestionnaire,
+              ),
       ),
     );
   }

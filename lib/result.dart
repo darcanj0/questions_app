@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Result extends StatelessWidget {
-  Result({super.key, required this.totalScore}) {
+  Result(
+      {super.key,
+      required this.totalScore,
+      required this.onFinishQuestionnaire}) {
     if (totalScore >= 8) {
       text = const Text(
         "Congrats!!",
@@ -21,6 +24,7 @@ class Result extends StatelessWidget {
   }
 
   final int totalScore;
+  final void Function() onFinishQuestionnaire;
   late Text text;
 
   Text getText() {
@@ -29,6 +33,15 @@ class Result extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: text);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Center(child: text),
+        FilledButton(
+          onPressed: onFinishQuestionnaire,
+          child: const Text('Restart Questionnaire'),
+        )
+      ],
+    );
   }
 }
