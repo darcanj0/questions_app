@@ -74,7 +74,7 @@ class _QuestionsAppState extends State<QuestionsApp> {
                 selectedQuestion: selectedQuestion,
                 onAnswer: onAnswer,
               )
-            : const Result(),
+            : Result(totalScore: totalScore,),
       ),
     );
   }
