@@ -5,12 +5,12 @@ class Result extends StatelessWidget {
       {super.key,
       required this.totalScore,
       required this.onFinishQuestionnaire}) {
-    if (totalScore >= 8) {
+    if (totalScore >= 25) {
       text = const Text(
         "Congrats!!",
         style: TextStyle(fontSize: 28),
       );
-    } else if (6 < totalScore && totalScore < 8) {
+    } else if (15 <= totalScore && totalScore < 25) {
       text = const Text(
         "You did well!",
         style: TextStyle(fontSize: 28),
